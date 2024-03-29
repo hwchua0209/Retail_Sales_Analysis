@@ -160,7 +160,7 @@ cython_debug/
 #.idea/
 
 # Secrets
-secrets/*
+secrets/*.json
 
 # Terraform
 **/.terraform/*
