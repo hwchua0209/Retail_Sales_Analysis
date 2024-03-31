@@ -1,3 +1,4 @@
+PROJECT_NAME=retail_sales_analysis_mage-magic
 #################################################################################
 # Terraform Commands          		                                            #
 #################################################################################
@@ -35,16 +36,20 @@ terraform: terraform_apply
 #################################################################################
 
 ## Launch data pipeline container
-docker:
+start:
 	@echo "Launching data pipeline container"
 	@cd retail_sales_analysis_mage;\
+	docker compose down;\
+	docker compose build;\
 	docker compose up
 
-## Destroy data pipeline container
-docker_down:
+## Clean up data pipeline container
+clean:
 	@echo "Destroy data pipeline container"
 	@cd retail_sales_analysis_mage;\
-	docker compose down
+	docker compose down;\
+	docker ps -a | awk '/$(PROJECT_NAME)/ { print $$1 }' | xargs docker rm -f;\
+  	docker images -a | awk '/$(PROJECT_NAME)/ { print $$3 }' | xargs docker rmi -f
 
 #################################################################################
 # Self Documenting Commands                                                     #

@@ -86,22 +86,22 @@ make terraform_destroy
 
 **3. Launching the Data Pipeline:**
 ```script
-make docker
+make start
 ```
-* Run `make docker` to start the data processing container defined in `docker-compose.yml`. This container executes the data pipeline steps using Mage AI.
+* Run `make start` to start the data processing container defined in `docker-compose.yml`. This container executes the data pipeline steps using Mage AI.
 
-**4. Stopping the Data Pipeline:**
+**4. Stopping the Data Pipeline and clean up resources:**
 ```script
-make docker_down
+make clean
 ```
-* Use `make docker_down` to stop the running data processing container.
+* Use `make clean` to stop the running data processing container and clean up stopped images, container and volume.
 
 **5. Getting Help:**
 ```script
 Available rules:
 
-docker              Launch data pipeline container
-docker_down         Destroy data pipeline container
+clean               Clean up data pipeline container
+start               Launch data pipeline container
 terraform           Create cloud resources via Terraform
 terraform_destroy   Destroy cloud resources via Terraform
 ```
