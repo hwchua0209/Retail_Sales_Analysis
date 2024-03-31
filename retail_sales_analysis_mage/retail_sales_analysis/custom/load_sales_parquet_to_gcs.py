@@ -62,8 +62,6 @@ def load_sales_parquet_to_gcs(*args, **kwargs) -> None:
     df = df.withColumn("month", F.month("date"))
     df = df.withColumn("day", F.day("date"))
 
-    df.write \
-        # .partitionBy("year") \
-        .parquet(gcs_processed, mode="overwrite")
+    df.write.parquet(gcs_processed, mode="overwrite")
 
     print("Sales dataframe written to GCS")

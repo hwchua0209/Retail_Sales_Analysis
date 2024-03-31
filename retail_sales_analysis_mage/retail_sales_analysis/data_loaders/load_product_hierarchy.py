@@ -25,7 +25,7 @@ def load_from_google_cloud_storage(*args, **kwargs) -> pd.DataFrame:
 
     bucket_name = GCS_BUCKET_NAME
     object_key = "raw/product_hierarchy"
-
+    gcs_raw = f"gs://{bucket_name}/{object_key}"
     # Set schema
     dtype = {
         "product_id": str,
@@ -33,6 +33,11 @@ def load_from_google_cloud_storage(*args, **kwargs) -> pd.DataFrame:
         "product_depth": float,
         "product_width": float,
         "cluster_id": str,
+        "hierarchy1_id": str,
+        "hierarchy2_id": str,
+        "hierarchy3_id": str,
+        "hierarchy4_id": str,
+        "hierarchy5_id": str,
     }
 
     df = GoogleCloudStorage.with_config(

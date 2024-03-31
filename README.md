@@ -34,9 +34,9 @@ This automated pipeline will improve data accessibility, reliability, and ultima
 
 ### Prerequisites
 
-Place the following Json files to `secrets` folder. 
-1. GCP account & GCP Credentials API Key. Refer [here](https://cloud.google.com/docs/authentication/api-keys#create) for instructions.
-2. Kaggle account & Kaggle API Key. Refer [here](https://www.kaggle.com/docs/api) for instructions. 
+Place the following JSON files to `secrets` folder. 
+1. GCP Credentials API Key. Refer [here](https://cloud.google.com/docs/authentication/api-keys#create) for instructions.
+2. Kaggle API Key. Refer [here](https://www.kaggle.com/docs/api) for instructions. 
 
 ### Makefile
 This project utilizes a `Makefile` to automate various tasks. Here's how to use the Makefile to run the pipeline:

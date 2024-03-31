@@ -1,0 +1,77 @@
+
+version: 2
+
+models:
+  - name: fact_sales
+    description: "Fact sales table"
+    columns:
+      - name: product_id
+        description: "The unique identifier of a product"
+        tests:
+            - not_null:
+                severity: error
+      - name: store_id
+        description: "The unique identifier of a store"   
+        tests:
+            - not_null:
+                severity: error 
+      - name: date
+        description: "Sales date (YYYY-MM-DD)"
+        tests:
+            - not_null:
+                severity: error
+      - name: sales
+        description: "Sales quantity"
+        tests:
+            - not_null:
+                severity: error
+      - name: revenue
+        description: "Daily total sales revenue" 
+        tests:
+            - not_null:
+                severity: error 
+      - name: stock
+        description: "End of day stock quantity"  
+        tests:
+            - not_null:
+                severity: error
+      - name: price
+        description: "Product sales price"  
+        tests:
+            - not_null:
+                severity: error
+      - name: year
+        description: "Year extracted from column date"  
+        tests:
+            - not_null:
+                severity: error
+      - name: month
+        description: "Month extracted from column date"  
+        tests:
+            - not_null:
+                severity: error
+      - name: day
+        description: "Day extracted from column date"  
+        tests:
+            - not_null:
+                severity: error
+      - name: product_volume
+        description: "Colume of product"
+      - name: cluster_id
+        description: "Cluster of products based on Sales"
+      - name: storetype_id
+        description: ""
+        tests:
+            - not_null:
+                severity: error
+      - name: store_size
+        description: ""
+        tests:
+            - not_null:
+                severity: error
+      - name: city_id
+        description: ""
+        tests:
+            - not_null:
+                severity: error
+

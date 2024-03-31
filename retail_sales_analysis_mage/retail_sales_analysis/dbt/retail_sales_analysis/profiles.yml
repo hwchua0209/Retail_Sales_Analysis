@@ -1,0 +1,14 @@
+retail_sales_analysis:
+  outputs:
+    dev:
+      dataset: sales_analysis
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      keyfile: /home/src/secrets/gcp_creds.json
+      location: US
+      method: service-account
+      priority: interactive
+      project: plucky-spirit-412403
+      threads: 4
+      type: bigquery
+  target: dev

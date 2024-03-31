@@ -18,11 +18,12 @@ def export_data_to_google_cloud_storage(df: DataFrame, **kwargs) -> None:
 
     Docs: https://docs.mage.ai/design/data-loading#googlecloudstorage
     """
+    print(df.shape)
     config_path = path.join(get_repo_path(), "io_config.yaml")
     config_profile = "default"
 
     bucket_name = GCS_BUCKET_NAME
-    object_key = "processed/product_hierarchy.csv"
+    object_key = "processed/product_hierarchy"
 
     GoogleCloudStorage.with_config(
         ConfigFileLoader(config_path, config_profile)

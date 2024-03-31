@@ -137,3 +137,66 @@ def load_data_to_partitioned_table(
 
     table = client.get_table(table_id)
     print(f"Loaded {table.num_rows} rows to table {table_id}")
+
+
+def create_unpartitioned_table(
+    table_id: str, schema: List[bigquery.SchemaField], uri: List[str]
+) -> None:
+    """
+    Create an external table in Google BigQuery from CSV files.
+
+    Args:
+        table_id (str): The ID of the table to be created.
+        uri (List[str]): A list of URIs pointing to the CSV files in Google Cloud.
+
+    Returns:
+        None
+    """
+    # Retrieve the GCP credentials and set the GOOGLE_APPLICATION_CREDENTIALS environment variable
+    get_gcp_creds()
+
+    client = bigquery.Client()
+    table = bigquery.Table(table_id, schema=schema)
+
+    table = client.create_table(table)  # Make an API request.
+
+    print(
+        f"Created unpartitioned table {table.project}.{table.dataset_id}.{table.table_id}"
+    )
+
+
+def load_data_to_unpartitioned_table(
+    table_id: str, schema: List[bigquery.SchemaField], uri: List[str]
+) -> None:
+    """
+    Loads data from a URI into an external table in BigQuery.
+
+    Args:
+        table_id (str): The ID of the table to load the data into.
+        schema (List[bigquery.SchemaField]): The schema of the data being loaded.
+        uri (str): The URI of the data to load.
+
+    Returns:
+        None
+
+    Raises:
+        google.api_core.exceptions.GoogleAPIError: If an error occurs while loading the data.
+    """
+    # Retrieve the GCP credentials and set the GOOGLE_APPLICATION_CREDENTIALS environment variable
+    get_gcp_creds()
+
+    client = bigquery.Client()
+
+    job_config = bigquery.LoadJobConfig(
+        schema=schema,
+        source_format=bigquery.SourceFormat.CSV,
+        skip_leading_rows=1,
+    )
+    load_job = client.load_table_from_uri(
+        uri, table_id, job_config=job_config
+    )  # Make an API request.
+
+    load_job.result()  # Wait for the job to complete.
+
+    table = client.get_table(table_id)
+    print(f"Loaded {table.num_rows} rows to table {table_id}")

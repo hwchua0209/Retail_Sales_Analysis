@@ -68,13 +68,13 @@ blocks:
   language: python
   name: load_product_hierarchy
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_loader
   upstream_blocks:
   - local_to_gcs
   uuid: load_product_hierarchy
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration: {}
   downstream_blocks:
@@ -85,39 +85,41 @@ blocks:
   language: python
   name: drop_column_product_hierarchy
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: transformer
   upstream_blocks:
   - load_product_hierarchy
   uuid: drop_column_product_hierarchy
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - load_store_cities_to_gbp
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: load_store_cities_to_gcs
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
   - load_store_cities
   uuid: load_store_cities_to_gcs
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - load_product_hierarchy_to_gbp
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: load_product_hierarchy_to_gcs
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
@@ -153,16 +155,17 @@ blocks:
   language: python
   name: load_store_cities
   retry_config: null
-  status: not_executed
+  status: executed
   timeout: null
   type: data_loader
   upstream_blocks:
   - local_to_gcs
   uuid: load_store_cities
 - all_upstream_blocks_executed: true
-  color: yellow
+  color: teal
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - dbt/retail_sales_analysis/models/staging/staging_sales
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -175,6 +178,145 @@ blocks:
   upstream_blocks:
   - load_sales_parquet_to_gcs
   uuid: load_sales_parquet_to_gbp
+- all_upstream_blocks_executed: true
+  color: teal
+  configuration:
+    file_source:
+      path: custom/load_product_hierarchy_to_gbp.py
+  downstream_blocks:
+  - dbt/retail_sales_analysis/models/staging/staging_seed_product_hierarchy
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_product_hierarchy_to_gbp
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - load_product_hierarchy_to_gcs
+  uuid: load_product_hierarchy_to_gbp
+- all_upstream_blocks_executed: true
+  color: teal
+  configuration:
+    file_source:
+      path: custom/load_store_cities_to_gbp.py
+  downstream_blocks:
+  - dbt/retail_sales_analysis/models/staging/staging_seed_store_cities
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_store_cities_to_gbp
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - load_store_cities_to_gcs
+  uuid: load_store_cities_to_gbp
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_profile_target: dev
+    dbt_profiles_file_path: dbt/retail_sales_analysis/profiles.yml
+    dbt_project_name: dbt/retail_sales_analysis
+    file_path: dbt/retail_sales_analysis/models/staging/staging_sales.sql
+    file_source:
+      path: dbt/retail_sales_analysis/models/staging/staging_sales.sql
+      project_path: dbt/retail_sales_analysis
+    limit: 1000
+  downstream_blocks:
+  - dbt/retail_sales_analysis/models/core/facts_sales
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/retail_sales_analysis/models/staging/staging_sales
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - load_sales_parquet_to_gbp
+  uuid: dbt/retail_sales_analysis/models/staging/staging_sales
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_profile_target: dev
+    dbt_profiles_file_path: dbt/retail_sales_analysis/profiles.yml
+    dbt_project_name: dbt/retail_sales_analysis
+    file_path: dbt/retail_sales_analysis/models/staging/staging_seed_product_hierarchy.sql
+    file_source:
+      path: dbt/retail_sales_analysis/models/staging/staging_seed_product_hierarchy.sql
+      project_path: dbt/retail_sales_analysis
+    limit: 1000
+  downstream_blocks:
+  - dbt/retail_sales_analysis/models/core/facts_sales
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/retail_sales_analysis/models/staging/staging_seed_product_hierarchy
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - load_product_hierarchy_to_gbp
+  uuid: dbt/retail_sales_analysis/models/staging/staging_seed_product_hierarchy
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_profile_target: dev
+    dbt_profiles_file_path: dbt/retail_sales_analysis/profiles.yml
+    dbt_project_name: dbt/retail_sales_analysis
+    file_path: dbt/retail_sales_analysis/models/staging/staging_seed_store_cities.sql
+    file_source:
+      path: dbt/retail_sales_analysis/models/staging/staging_seed_store_cities.sql
+      project_path: dbt/retail_sales_analysis
+    limit: 1000
+  downstream_blocks:
+  - dbt/retail_sales_analysis/models/core/facts_sales
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/retail_sales_analysis/models/staging/staging_seed_store_cities
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - load_store_cities_to_gbp
+  uuid: dbt/retail_sales_analysis/models/staging/staging_seed_store_cities
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_profile_target: dev
+    dbt_profiles_file_path: dbt/retail_sales_analysis/profiles.yml
+    dbt_project_name: dbt/retail_sales_analysis
+    file_path: dbt/retail_sales_analysis/models/core/facts_sales.sql
+    file_source:
+      path: dbt/retail_sales_analysis/models/core/facts_sales.sql
+      project_path: dbt/retail_sales_analysis
+    limit: 1000
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/retail_sales_analysis/models/core/facts_sales
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/retail_sales_analysis/models/staging/staging_seed_product_hierarchy
+  - dbt/retail_sales_analysis/models/staging/staging_sales
+  - dbt/retail_sales_analysis/models/staging/staging_seed_store_cities
+  uuid: dbt/retail_sales_analysis/models/core/facts_sales
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

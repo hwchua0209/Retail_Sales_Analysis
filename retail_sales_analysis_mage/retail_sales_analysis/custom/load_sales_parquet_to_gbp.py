@@ -22,7 +22,7 @@ def load_sales_parquet_to_gbq(*args, **kwargs) -> None:
 
     project_id = "plucky-spirit-412403"
     dataset_id = "sales_analysis"
-    table_name = "sales"
+    table_name = "raw_sales"
 
     table_id = f"{project_id}.{dataset_id}.{table_name}"
 
@@ -31,9 +31,9 @@ def load_sales_parquet_to_gbq(*args, **kwargs) -> None:
         bigquery.SchemaField("store_id", "STRING"),
         bigquery.SchemaField("date", "DATE"),
         bigquery.SchemaField("sales", "INTEGER"),
-        bigquery.SchemaField("revenue", "FLOAT"),
+        bigquery.SchemaField("revenue", "FLOAT64"),
         bigquery.SchemaField("stock", "INTEGER"),
-        bigquery.SchemaField("price", "FLOAT"),
+        bigquery.SchemaField("price", "FLOAT64"),
         bigquery.SchemaField("year", "INTEGER"),
         bigquery.SchemaField("month", "INTEGER"),
         bigquery.SchemaField("day", "INTEGER"),

@@ -11,6 +11,7 @@ services:
       USER_CODE_PATH: /home/src/${PROJECT_NAME}
       ENV: ${ENV}
       KAGGLE_CONFIG_DIR: /home/src/secrets/
+      DBT_PROJECT_DIR: /home/src/retail_sales_analysis_mage/retail_sales_analysis/dbt/retail_sales_analysis
     ports:
       - 6789:6789
       - 4040:4040

@@ -12,7 +12,7 @@ if "data_exporter" not in globals():
 
 
 @data_exporter
-def export_data_to_google_cloud_storage(**kwargs) -> None:
+def export_data_to_google_cloud_storage(*args, **kwargs) -> None:
     """
     Template for exporting data to a Google Cloud Storage bucket.
     Specify your configuration settings in 'io_config.yaml'.
@@ -39,8 +39,4 @@ def export_data_to_google_cloud_storage(**kwargs) -> None:
 
         GoogleCloudStorage.with_config(
             ConfigFileLoader(config_path, config_profile)
-        ).export(
-            csv_path,
-            bucket_name,
-            object_key,
-        )
+        ).export(csv_path, bucket_name, object_key, index_col=False)

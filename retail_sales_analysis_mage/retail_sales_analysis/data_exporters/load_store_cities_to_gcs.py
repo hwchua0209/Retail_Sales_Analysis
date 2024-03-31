@@ -22,7 +22,7 @@ def export_data_to_google_cloud_storage(df: DataFrame, **kwargs) -> None:
     config_profile = "default"
 
     bucket_name = GCS_BUCKET_NAME
-    object_key = "processed/store_cities.csv"
+    object_key = "processed/store_cities"
 
     GoogleCloudStorage.with_config(
         ConfigFileLoader(config_path, config_profile)

@@ -22,12 +22,7 @@ spark_config:
   spark_home:
   # List of key-value pairs to be set in SparkConf
   # e.g., others: {'spark.executor.memory': '4g', 'spark.executor.cores': '2'}
-  others: {
-    'spark.hadoop.fs.gs.impl': 'com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem',
-    'spark.hadoop.fs.gs.auth.service.account.enable': 'true',
-    'google.cloud.auth.service.account.json.keyfile': '/home/src/secrets/gcp_creds.json',
-    'spark.driver.memory': '3g',
-  }
+  others: {'spark.hadoop.fs.gs.impl': 'com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem', 'spark.hadoop.fs.gs.auth.service.account.enable': 'true', 'google.cloud.auth.service.account.json.keyfile': '/home/src/secrets/gcp_creds.json', 'spark.driver.memory': '3g'}
   # Whether to create custom SparkSession via code and set in kwargs['context']
   use_custom_session: false
   # The variable name to set in kwargs['context'],
@@ -49,4 +44,5 @@ features:
   command_center: true
   add_new_block_v2: true
   code_block_v2: true
+  dbt_v2: true
 pipelines:

@@ -1,0 +1,110 @@
+
+version: 2
+
+sources:
+  - name: staging
+    database: plucky-spirit-412403
+    schema: sales_analysis
+    tables: 
+      - name: raw_sales
+      - name: seed_product_hierarchy
+      - name: seed_store_cities
+
+models:
+  - name: staging_sales_sql
+    description: "Daily sales data between 2017 and 2019"
+    columns:
+      - name: product_id
+        description: "The unique identifier of a product"
+        tests:
+            - not_null:
+                severity: error
+      - name: store_id
+        description: "The unique identifier of a store"   
+        tests:
+            - not_null:
+                severity: error 
+      - name: date
+        description: "Sales date (YYYY-MM-DD)"
+        tests:
+            - not_null:
+                severity: error
+      - name: sales
+        description: "Sales quantity"
+        tests:
+            - not_null:
+                severity: error
+      - name: revenue
+        description: "Daily total sales revenue" 
+        tests:
+            - not_null:
+                severity: error 
+      - name: stock
+        description: "End of day stock quantity"  
+        tests:
+            - not_null:
+                severity: error
+      - name: price
+        description: "Product sales price"  
+        tests:
+            - not_null:
+                severity: error
+      - name: year
+        description: "Year extracted from column date"  
+        tests:
+            - not_null:
+                severity: error
+      - name: month
+        description: "Month extracted from column date"  
+        tests:
+            - not_null:
+                severity: error
+      - name: day
+        description: "Day extracted from column date"  
+        tests:
+            - not_null:
+                severity: error
+
+  - name: staging_seed_product_hierarchy
+    description: "Data containing the hierarchy and sizes of the products."
+    columns:
+      - name: product_id
+        description: "The unique identifier of a product"
+        tests:
+            - not_null:
+                severity: error
+      - name: product_length
+        description: "Length of product"
+      - name: product_depth
+        description: "Depth of product"
+      - name: product_width
+        description: "Width of product"
+      - name: product_volume
+        description: "Volume of product based on length * depth * width"
+      - name: cluster_id
+        description: "Cluster of products based on Sales"
+
+  - name: staging_seed_store_cities
+    description: "Data containing the city, type and size information of the stores"
+    columns:
+      - name: store_id
+        description: "The unique identifier of a store" 
+        tests:
+            - not_null:
+                severity: error
+      - name: storetype_id
+        description: ""
+        tests:
+            - not_null:
+                severity: error
+      - name: store_size
+        description: ""
+        tests:
+            - not_null:
+                severity: error
+      - name: city_id
+        description: ""
+        tests:
+            - not_null:
+                severity: error
+

@@ -1,0 +1,28 @@
+sources:
+- description: Dataframes Mage upstream blocks
+  loader: mage
+  name: mage_retail_sales_analysis
+  schema: sales_analysis
+  tables:
+  - description: Dataframe for block `load_product_hierarchy_to_gbp` of the `retail_sales_analysis`
+      mage pipeline.
+    identifier: mage_retail_sales_analysis_load_product_hierarchy_to_gbp
+    meta:
+      block_uuid: load_product_hierarchy_to_gbp
+      pipeline_uuid: retail_sales_analysis
+    name: retail_sales_analysis_load_product_hierarchy_to_gbp
+  - description: Dataframe for block `load_store_cities_to_gbp` of the `retail_sales_analysis`
+      mage pipeline.
+    identifier: mage_retail_sales_analysis_load_store_cities_to_gbp
+    meta:
+      block_uuid: load_store_cities_to_gbp
+      pipeline_uuid: retail_sales_analysis
+    name: retail_sales_analysis_load_store_cities_to_gbp
+  - description: Dataframe for block `load_sales_parquet_to_gbp` of the `retail_sales_analysis`
+      mage pipeline.
+    identifier: mage_retail_sales_analysis_load_sales_parquet_to_gbp
+    meta:
+      block_uuid: load_sales_parquet_to_gbp
+      pipeline_uuid: retail_sales_analysis
+    name: retail_sales_analysis_load_sales_parquet_to_gbp
+version: 2
