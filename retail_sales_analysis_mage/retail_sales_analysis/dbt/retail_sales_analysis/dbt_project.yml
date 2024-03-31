@@ -35,4 +35,4 @@ models:
     staging:
       +materialized: view
     core:
-      +materialized: view
+      +materialized: table
